@@ -1,0 +1,51 @@
+#!/bin/bash 
+
+if [[ ${UID} -ne 0 ]] 
+then 
+ echo "You need sudo permission to perform this task" >&2
+ exit 1
+fi 
+
+read -p "Your first name: " name
+read -p "Your surname: " surname
+
+PS3="What is your preferred phone? "
+
+select phone in headset handheld;
+do 
+ echo "You have chosen $phone" 
+break
+done 
+
+PS3="What is your department? " 
+
+select department in finance sales "customer service" engineering;
+do 
+ echo "Your department is $department" 
+break 
+done 
+
+read -N 4 -p 'Your extension number (must be 4 digits): ' extension
+echo
+read -N 4 -s -p 'Your access code (must be 4 digits): ' code
+echo 
+
+EXTENSION_DIR="/etc/extension" 
+
+if [[ ! -d "${EXTENSION_DIR}" ]] 
+then 
+ mkdir -p /etc/extension 
+fi 
+
+EXTENSION_CSV="${EXTENSION_DIR}/extension.csv"
+
+if [[ ! -e "${EXTENSION_CSV}" ]]
+then
+ echo 'firstname,lastname,extension,access,phone,department' > $EXTENSION_CSV 
+fi 
+
+echo "${name},${surname},${extension},${code},${phone},${department}" >> $EXTENSION_CSV 
+
+exit 0 
+
+ 
