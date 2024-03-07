@@ -1,8 +1,0 @@
-HTTP/1.1 301 Moved Permanently
-Location: https://www.instagram.com/
-Content-Type: text/plain
-Server: proxygen-bolt
-Date: Sat, 10 Feb 2024 16:23:42 GMT
-Connection: keep-alive
-Content-Length: 0
-
